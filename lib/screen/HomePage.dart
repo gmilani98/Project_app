@@ -1,6 +1,8 @@
 //import 'dart:html';
 //import 'dart:ui';
 
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:prova/screen/LoginPage.dart';
@@ -54,30 +56,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        drawer: Drawer(
-          child: Center(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 150,
-                      height: 150,
-                      color: Colors.red,
-                      // fit: BoxFit.fitWidth,
-                      //scale: 0.1,
-                    ),
-                    Container(
-                      child: Flexible(
-                        child: Text("Image of something"),
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
+        drawer: NewDrawer(),
         body: PageView(
           controller: pageController,
           children: [
@@ -133,3 +112,66 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+class NewDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Container(
+        color: Color.fromRGBO(50, 55, 205, 1),
+        child: ListView(
+          children: [
+            DrawerHeader(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  "Nome profilo",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  "Email",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            )),
+            ListTile(
+              selectedTileColor: Colors.white24,
+              leading: Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
+              title: Text(
+                "Profile",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            ListTile(
+              selectedTileColor: Colors.white24,
+              title: Text(
+                "Profile information",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context, '/HomePage'); //esempio mio da fare
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
