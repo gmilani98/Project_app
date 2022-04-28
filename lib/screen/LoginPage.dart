@@ -15,11 +15,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   var rememberValue = false;
+  TextEditingController _firstController = TextEditingController();
+  TextEditingController _secondController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //  backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Color.fromARGB(255, 52, 240, 240),
       body: Container(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -41,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 children: [
                   TextFormField(
+                    controller: _firstController,
                     validator: (value) => EmailValidator.validate(value!)
                         ? null
                         : "Please enter a valid email",
@@ -57,6 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: _secondController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your password';
@@ -91,7 +95,12 @@ class _LoginPageState extends State<LoginPage> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.pushNamed(context, '/HomePage');
+                        Navigator.pushNamed(context, '/HomePage').then((value) {
+                          _firstController
+                              .clear(); //elimina email quando si esce
+                          _secondController
+                              .clear(); //elimina password quando si esce
+                        });
                       } else {
                         //Navigator.pushNamed(context, '/HomePage');
                         //return null;
@@ -108,6 +117,8 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
+                      primary: Colors.red,
+                      elevation: 3.0,
                     ),
                     child: const Text(
                       'Sign in',
@@ -146,3 +157,4 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
